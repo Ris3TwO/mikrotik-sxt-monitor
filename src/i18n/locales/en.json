@@ -1,0 +1,94 @@
+{
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "themeOptions": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "dashboard": {
+    "title": "NOC Dashboard",
+    "linkDowns": "Total Link Downs",
+    "lastDown": "Last Drop",
+    "ssid": "SSID",
+    "bssid": "BSSID",
+    "identity": "Network Identity (SSID / BSSID)",
+    "signalStrength": "Signal Strength (RSSI)",
+    "linkHealth": "Link Health",
+    "totalDowns": "Interruptions",
+    "lastDownTime": "Last Drop",
+    "activeInterface": "Active Interface",
+    "wanInterfaceName": "Interface",
+    "lastUplinkTime": "Last Uplink",
+    "physicalRates": "Physical Rates (RX / TX Rate)",
+    "txRate": "Transmission (TX)",
+    "rxRate": "Reception (RX)",
+    "clientConnectionQuality": "Client Connection Quality (CCQ)",
+    "frequency": "Frequency",
+    "channel": "Channel",
+    "signalToNoiseRatio": "Signal-to-Noise Ratio (SNR)",
+    "signalMargin": "Link quality margin",
+    "noiseFloor": "Noise Floor",
+    "noiseFloorInfo": "Base radio noise floor",
+    "trafficInfo": "Data traffic on the interface",
+    "linkPerformance": "Link Performance (RX / TX)",
+    "liveTransferRate": "Live Transfer Rate (Kbps)",
+    "linkAlert": {
+      "title": "Link Warning",
+      "unreachable": "Device unreachable. Check IP or credentials.",
+      "unassociated": "The antenna is not associated with any AP (empty SSID)."
+    }
+  },
+  "login": {
+    "ip_address": "Device IP Address (IPv4)",
+    "username": "Username",
+    "password": "Password",
+    "remember_password": "Remember password on this device",
+    "loginButton": "Connect",
+    "loginButtonLoading": "Connecting...",
+    "engine": "Engine",
+    "notify": {
+      "success": {
+        "title": "Link Established",
+        "text": "Successfully authenticated with RouterOS."
+      },
+      "error": {
+        "authenticationFailed": {
+          "title": "Authentication Failed",
+          "text": "{error}"
+        },
+        "missing_fields": {
+          "title": "Validation Error",
+          "text": "Please fill in all required fields"
+        },
+        "auto_login_failed": {
+          "title": "Auto Login Failed",
+          "text": "Could not log in automatically. Please log in manually."
+        }
+      }
+    }
+  },
+  "logout": {
+    "button": {
+      "title": "Disconnect from the device"
+    },
+    "notify": {
+      "success": {
+        "title": "Session Ended",
+        "text": "You have been disconnected from the RouterOS device."
+      }
+    }
+  },
+  "misc": {
+    "loading": "Loading...",
+    "error": "Error",
+    "noData": "No Data",
+    "lastUpdated": "Last Updated: {time}",
+    "offline": "Offline",
+    "online": "Online",
+    "realTimeUpdates": "Real-time Updates"
+  }
+}

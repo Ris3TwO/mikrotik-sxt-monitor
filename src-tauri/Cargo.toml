@@ -1,0 +1,34 @@
+[package]
+name = "mikrotik-monitor"
+version = "0.2.0"
+description = "A Tauri App"
+authors = ["Ris3TwO"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "mikrotik_monitor_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-updater = "2"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = "0.4.45"
+
+[profile.release]
+codegen-units = 1     # Optimiza todo el binario en una sola unidad (reduce tamaño y mejora velocidad)
+lto = true            # Link Time Optimization (elimina código muerto de dependencias de Rust)
+opt-level = "s"       # Optimiza estrictamente para reducir el tamaño del binario (puedes usar "z" para tamaño mínimo absoluto)
+strip = true          # Elimina todos los símbolos de depuración y metadatos innecesarios

@@ -1,0 +1,94 @@
+{
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema",
+    "themeOptions": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    }
+  },
+  "dashboard": {
+    "title": "Panel de Control NOC",
+    "linkDowns": "Total Caídas",
+    "lastDown": "Última caída",
+    "ssid": "SSID",
+    "bssid": "BSSID",
+    "identity": "Identidad de Red (SSID / BSSID)",
+    "signalStrength": "Intensidad de Señal (RSSI)",
+    "linkHealth": "Estado de Enlace",
+    "totalDowns": "Interrupciones",
+    "lastDownTime": "Último Corte",
+    "activeInterface": "Interfaz Activa",
+    "wanInterfaceName": "Interfaz",
+    "lastUplinkTime": "Última Conexión",
+    "physicalRates": "Velocidades Físicas (RX / TX Rate)",
+    "txRate": "Transmisión (TX)",
+    "rxRate": "Recepción (RX)",
+    "clientConnectionQuality": "Calidad de Enlace (CCQ)",
+    "frequency": "Frecuencia",
+    "channel": "Canal",
+    "signalToNoiseRatio": "SNR (Relación Señal/Ruido)",
+    "signalMargin": "Margen de calidad de enlace",
+    "noiseFloor": "Piso de Ruido",
+    "noiseFloorInfo": "Ruido radioeléctrico base",
+    "trafficInfo": "Tráfico de datos en la interfaz",
+    "linkPerformance": "Rendimiento del enlace (RX / TX)",
+    "liveTransferRate": "Transferencia en tiempo real (Kbps)",
+    "linkAlert": {
+      "title": "Advertencia de Enlace",
+      "unreachable": "Dispositivo inalcanzable. Verifique la IP o credenciales.",
+      "unassociated": "La antena no está asociada a ningún AP (SSID vacío)."
+    }
+  },
+  "login": {
+    "ip_address": "Dirección IP del Dispositivo (IPv4)",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "remember_password": "Recordar contraseña en este dispositivo",
+    "loginButton": "Conectar",
+    "loginButtonLoading": "Conectando...",
+    "engine": "Motor",
+    "notify": {
+      "success": {
+        "title": "Enlace Establecido",
+        "text": "Autenticación correcta con RouterOS."
+      },
+      "error": {
+        "authenticationFailed": {
+          "title": "Fallo de autenticación",
+          "text": "{error}"
+        },
+        "missing_fields": {
+          "title": "Error de Validación",
+          "text": "Completa todos los campos requeridos"
+        },
+        "auto_login_failed": {
+          "title": "Error de Autenticación Automática",
+          "text": "No se pudo iniciar sesión automáticamente. Por favor, inicia sesión manualmente."
+        }
+      }
+    }
+  },
+  "logout": {
+    "button": {
+      "title": "Desconectar del Dispositivo"
+    },
+    "notify": {
+      "success": {
+        "title": "Sesión Finalizada",
+        "text": "Se ha desconectado del dispositivo RouterOS."
+      }
+    }
+  },
+  "misc": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "noData": "Sin datos",
+    "lastUpdated": "Última actualización: {time}",
+    "offline": "Desconectado",
+    "online": "Conectado",
+    "realTimeUpdates": "Actualizaciones en tiempo real"
+  }
+}
