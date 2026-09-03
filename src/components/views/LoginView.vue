@@ -3,7 +3,7 @@
  * Login view component providing the gateway interface for entering 
  * MikroTik device credentials and handling authentication workflows.
  */
-import { useAuth } from "@/composables/useAuth";
+import { useAuth } from "@/composables/useAuth/useAuth";
 import NetworkInput from "@/components/atoms/NetworkInput.vue";
 import NetworkButton from "@/components/atoms/NetworkButton.vue";
 import { useI18n } from "vue-i18n";
