@@ -1,5 +1,14 @@
+/**
+ * Main stylesheet for the On Coder's MikroTik NOC application.
+ * Configures Tailwind CSS imports, custom typography faces (Space Mono & Ailerons),
+ * theme design tokens, and global layout styles.
+ */
+
 @import "tailwindcss";
 
+/**
+ * Custom typography font-face declarations
+ */
 @font-face {
   font-family: "Space Mono";
   src: url("../assets/fonts/SpaceMono-Regular.woff2") format("woff2");
@@ -24,12 +33,16 @@
   font-display: swap;
 }
 
+/**
+ * Tailwind v4 theme configuration defining brand color scales,
+ * typography mappings, and semantic interface variables.
+ */
 @theme {
-  /* Tipografías de la marca */
+  /* Brand typography families */
   --font-mono: "Space Mono", monospace;
   --font-sans: "Ailerons", sans-serif;
 
-  /* Paleta de colores oficial de On Coder's */
+  /* Official On Coder's color palette */
   --color-brand-pear: #d2fc38;
   --color-brand-turquoise: #21d8d3;
   --color-brand-lavender: #d7d7f4;
@@ -37,7 +50,7 @@
   --color-brand-dark: #161620;
   --color-brand-violet: #683de5;
 
-  /* Variables semánticas del tema (para soportar modo oscuro / claro) */
+  /* Semantic theme variables for light and dark mode support */
   --color-canvas: var(--theme-canvas);
   --color-surface: var(--theme-surface);
   --color-primary: var(--theme-primary);
@@ -46,27 +59,34 @@
   --color-muted: var(--theme-muted);
 }
 
-/* Definición de los temas usando selectores de atributos en :root o clases */
+/**
+ * Theme color mappings for dark mode (default)
+ */
 :root,
 [data-theme="dark"] {
   --theme-canvas: #161620; /* Eerie Black */
-  --theme-surface: #1e1e2d; /* Superficie de tarjetas */
+  --theme-surface: #1e1e2d; /* Card surface */
   --theme-primary: #683de5; /* Majorelle Violet */
   --theme-accent: #d2fc38; /* Pear */
   --theme-main: #d7d7f4; /* Pale Lavender */
   --theme-muted: #7278a0; /* Rhythm */
 }
 
+/**
+ * Theme color mappings for light mode
+ */
 [data-theme="light"] {
   --theme-canvas: #f8fafc; /* Pale Lavender */
-  --theme-surface: #ffffff; /* Blanco limpio */
+  --theme-surface: #ffffff; /* Clean white */
   --theme-primary: #3b82f6; /* Majorelle Violet */
   --theme-accent: #21d8d3; /* Bright Turquoise */
   --theme-main: #0f172a; /* Eerie Black */
   --theme-muted: #475569; /* Rhythm */
 }
 
-/* Estilos base globales */
+/**
+ * Global base styles
+ */
 body {
   background-color: var(--theme-canvas);
   color: var(--theme-main);
@@ -82,7 +102,9 @@ h6 {
   font-family: var(--font-mono);
 }
 
-/* Scrollbars personalizados estilo NOC */
+/**
+ * Custom NOC-styled scrollbars
+ */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
