@@ -66,7 +66,6 @@ export const useRelativeTime = (timestamp: TimestampInput) => {
 
   const relativeTime = computed(() => {
     const currentTimestamp = resolveTimestamp();
-    if (tick.value < 0) return "";
     if (!currentTimestamp) return "N/A";
     return dayjs(currentTimestamp).fromNow();
   });

@@ -9,9 +9,9 @@ import { useDeviceStore } from "@/stores/deviceStore";
 import { onStatusUpdate, connectDevice, disconnectDevice } from "@/lib/api";
 import { DeviceStatus, LoginCredentials, TrafficPoint } from "@/types";
 
-import LoginView from "@/components/views/LoginView.vue";
-import DashboardView from "@/components/views/DashboardView.vue";
-import LanguageSelector from "@/components/molecules/LanguageSelector.vue";
+import LoginView from "@/components/views/LoginView/LoginView.vue";
+import DashboardView from "@/components/views/DashboardView/DashboardView.vue";
+import LanguageSelector from "@/components/molecules/LanguageSelector/LanguageSelector.vue";
 
 const device = useDeviceStore();
 const isAuthenticated = ref<boolean>(false);
@@ -26,9 +26,7 @@ const ipAddress = ref<string>("");
  * @param {LoginCredentials} credentials - Connection credentials containing IP, user, and password.
  * @returns {Promise<void>}
  */
-const handleLoginSuccess = async (
-  credentials: LoginCredentials,
-): Promise<void> => {
+const handleLoginSuccess = async (credentials: LoginCredentials): Promise<void> => {
   isAuthenticated.value = true;
   ipAddress.value = credentials.ip;
 
@@ -76,10 +74,10 @@ const handleLogout = (): void => {
           'border-red-500/30 text-main': props.item.type === 'error',
           'border-amber-500/30 text-main': props.item.type === 'warn',
           'border-blue-500/30 text-main': props.item.type === 'info',
-          'border-muted/20 text-main':
-            !props.item.type || props.item.type === 'success',
+          'border-muted/20 text-main': !props.item.type || props.item.type === 'success',
         }"
       >
+        <!-- Notification type indicator dot -->
         <div
           class="w-2 h-2 rounded-full mt-1 shrink-0"
           :class="{
@@ -90,6 +88,7 @@ const handleLogout = (): void => {
           }"
         ></div>
 
+        <!-- Notification content container -->
         <div class="flex-1">
           <p class="font-bold text-main tracking-tight">
             {{ props.item.title }}
@@ -97,6 +96,7 @@ const handleLogout = (): void => {
           <p class="text-muted mt-0.5 leading-relaxed">{{ props.item.text }}</p>
         </div>
 
+        <!-- Dismiss button -->
         <button
           @click="props.close"
           class="text-muted hover:text-main transition p-1 cursor-pointer"
@@ -107,14 +107,14 @@ const handleLogout = (): void => {
     </template>
   </notifications>
 
-  <!-- Barra superior fija y limpia para controles globales -->
+  <!-- Clean fixed top bar for global controls -->
   <header
     class="w-full px-6 py-3 flex justify-end items-center border-b border-muted/10 bg-surface/30 backdrop-blur-sm z-50"
   >
     <LanguageSelector />
   </header>
 
-  <!-- Vista de Login Atómica -->
+  <!-- Atomic login view -->
   <LoginView v-if="!isAuthenticated" @login-success="handleLoginSuccess" />
 
   <!-- Main Dashboard View (Organizes Header, MetricGrid, and TrafficChart) -->

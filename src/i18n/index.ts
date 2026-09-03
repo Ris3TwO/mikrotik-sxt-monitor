@@ -10,7 +10,7 @@ import es from "./locales/es.json";
  * @returns {string} The resolved locale code ("en" or "es").
  */
 
-const getInitialLocale = (): string => {
+export const getInitialLocale = (): string => {
   const savedLocale = localStorage.getItem("user-locale");
   if (savedLocale && ["es", "en"].includes(savedLocale)) {
     return savedLocale;

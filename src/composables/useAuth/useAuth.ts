@@ -13,7 +13,7 @@ import { LoginCredentials } from "@/types";
  */
 export const useAuth = (
   onSuccess: (credentials: LoginCredentials) => void,
-  t: (key: string, params?: Record<string, unknown>) => string,
+  t: (key: string, params?: Record<string, unknown>) => string
 ) => {
   const ip = ref<string>("");
   const user = ref<string>("");
@@ -30,15 +30,12 @@ export const useAuth = (
     rememberPass.value = shouldRemember;
 
     if (shouldRemember && localStorage.getItem("mikrotik_pass")) {
-      pass.value = localStorage.getItem("mikrotik_pass") || "";
+      pass.value = localStorage.getItem("mikrotik_pass") as string;
 
       handleLogin().catch((err) => {
         notify({
           title: t("login.notify.error.auto_login_failed.title"),
-          text:
-            err instanceof Error
-              ? err.message
-              : t("login.notify.error.auto_login_failed.text"),
+          text: err instanceof Error ? err.message : t("login.notify.error.auto_login_failed.text"),
           type: "error",
         });
       });
@@ -91,8 +88,7 @@ export const useAuth = (
       onSuccess({ ip: trimmedIp, user: trimmedUser, pass: pass.value });
     } catch (err: unknown) {
       await timerPromise;
-      const errorMsg =
-        typeof err === "string" ? err : "Credenciales inválidas.";
+      const errorMsg = typeof err === "string" ? err : "Credenciales inválidas.";
       notify({
         title: t("login.notify.error.authenticationFailed.title"),
         text: t("login.notify.error.authenticationFailed.text", {
@@ -100,6 +96,7 @@ export const useAuth = (
         }),
         type: "error",
       });
+      throw err;
     } finally {
       isLoading.value = false;
     }
