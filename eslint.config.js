@@ -32,6 +32,7 @@ export default tseslint.config(
         clearTimeout: "readonly",
         setInterval: "readonly",
         clearInterval: "readonly",
+        process: "readonly",
       },
     },
     rules: {
@@ -54,7 +55,7 @@ export default tseslint.config(
 
       // General code style enforcement
       "no-console": "off",
-      "eqeqeq": "off",
+      eqeqeq: "off",
     },
   }
 );

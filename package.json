@@ -10,7 +10,8 @@
     "tauri": "tauri",
     "lint": "eslint . --ext .ts,.vue,.js",
     "lint:fix": "eslint . --ext .ts,.vue,.js --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "bump": "node scripts/bump.js"
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^3.4.2",
