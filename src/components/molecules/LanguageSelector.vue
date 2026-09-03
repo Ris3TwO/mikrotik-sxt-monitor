@@ -1,10 +1,21 @@
 <script setup lang="ts">
+/**
+ * Language switcher component that enables dynamic locale toggling between Spanish (es) and English (en),
+ * updates dayjs localization formatting, and persists the user preference in local storage.
+ */
 import { setDayjsLocale } from "@/utils/formatters";
 import { useI18n } from "vue-i18n";
 
 const { t, locale } = useI18n();
 
-const changeLanguage = (lang: string) => {
+/**
+ * Updates the active application locale, synchronizes the date formatting library,
+ * and saves the selected language choice.
+ *
+ * @param {string} lang - The target locale code ("es" or "en").
+ * @returns {void}
+ */
+const changeLanguage = (lang: string): void => {
   locale.value = lang;
   setDayjsLocale(lang);
   localStorage.setItem("user-locale", lang);

@@ -1,7 +1,13 @@
-<script setup>
-defineProps({
-  connected: Boolean,
-});
+Fragmento de código
+<script setup lang="ts">
+/**
+ * Status indicator dot component displaying an animated pulse effect
+ * colored according to the connection state.
+ */
+defineProps<{
+  /** Connection state flag indicating whether the entity is online */
+  connected: boolean;
+}>();
 </script>
 
 <template>

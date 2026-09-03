@@ -1,4 +1,8 @@
 <script setup lang="ts">
+/**
+ * NOC Header component displaying active device metadata, real-time connection status,
+ * and controls for session disconnection or logout.
+ */
 import { notify } from "@kyvg/vue3-notification";
 import StatusDot from "@/components/atoms/StatusDot.vue";
 import { DeviceMeta } from "@/types";
@@ -10,13 +14,24 @@ const { t } = useI18n();
 const device = useDeviceStore();
 
 defineProps<{
+  /** Connection state indicator flag */
   connected: boolean;
+  /** Metadata profile of the connected MikroTik device */
   deviceMeta: DeviceMeta;
 }>();
 
-const emit = defineEmits(["logout"]);
+const emit = defineEmits<{
+  /** Event emitted when the user requests a session logout or disconnection */
+  (e: "logout"): void;
+}>();
 
-const handleDisconnect = () => {
+/**
+ * Clears saved session credentials, resets the telemetry store state,
+ * triggers a success notification, and emits the logout event.
+ * 
+ * @returns {void}
+ */
+const handleDisconnect = (): void => {
   localStorage.removeItem("mikrotik_pass");
 
   device.reset();

@@ -1,8 +1,14 @@
 <script setup lang="ts">
+/**
+ * Link warning alert component displayed when the device is disconnected
+ * or lacks an active wireless SSID association.
+ */
 import { useI18n } from "vue-i18n";
 
 defineProps<{
+  /** Connection status flag */
   connected: boolean;
+  /** Active wireless service set identifier */
   ssid?: string | null;
 }>();
 

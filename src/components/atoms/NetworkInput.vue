@@ -1,14 +1,29 @@
-<script setup>
-defineProps({
-  modelValue: { type: [String, Number], default: "" },
-  label: { type: String, required: true },
-  type: { type: String, default: "text" },
-  placeholder: { type: String, default: "" },
-  showPasswordToggle: { type: Boolean, default: false },
-  showPassword: { type: Boolean, default: false },
-});
+<script setup lang="ts">
+/**
+ * Reusable network input component supporting v-model data binding,
+ * custom labels, types, placeholders, and an optional password visibility toggle.
+ */
+defineProps<{
+  /** Current input value bound via v-model */
+  modelValue?: string | number;
+  /** Text label displayed above the input field */
+  label: string;
+  /** HTML input type attribute */
+  type?: string;
+  /** Placeholder text shown when the input is empty */
+  placeholder?: string;
+  /** Flag to determine whether the password visibility toggle button is shown */
+  showPasswordToggle?: boolean;
+  /** Flag indicating whether the password text is currently visible */
+  showPassword?: boolean;
+}>();
 
-defineEmits(["update:modelValue", "toggle-password"]);
+defineEmits<{
+  /** Event emitted when the input value changes */
+  (e: "update:modelValue", value: string): void;
+  /** Event emitted when the password visibility toggle button is clicked */
+  (e: "toggle-password"): void;
+}>();
 </script>
 
 <template>
@@ -17,14 +32,16 @@ defineEmits(["update:modelValue", "toggle-password"]);
     <div class="relative">
       <input
         :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="
+          $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+        "
         :type="type"
         :placeholder="placeholder"
         class="w-full bg-canvas border border-muted/20 rounded-xl p-3 text-main placeholder-muted/50 focus:border-accent outline-none transition [&::-ms-reveal]:hidden [&::-webkit-credentials-auto-fill-button]:hidden"
         :class="{ 'pr-10': showPasswordToggle }"
       />
 
-      <!-- Botón opcional para mostrar/ocultar contraseña -->
+      <!-- Optional button to toggle password visibility -->
       <button
         v-if="showPasswordToggle"
         type="button"

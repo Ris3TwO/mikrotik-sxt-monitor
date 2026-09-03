@@ -1,4 +1,8 @@
 <script setup lang="ts">
+/**
+ * Link performance chart component rendering real-time incoming (RX) and outgoing (TX)
+ * network traffic telemetry curves using Chart.js.
+ */
 import { computed } from "vue";
 import { Line } from "vue-chartjs";
 import {
@@ -15,6 +19,7 @@ import {
 import { TrafficPoint } from "@/types";
 import { useI18n } from "vue-i18n";
 
+// Register Chart.js components and plugins
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -29,9 +34,14 @@ ChartJS.register(
 const { t } = useI18n();
 
 const props = defineProps<{
+  /** Historical array of traffic data points used to plot network rates */
   history: TrafficPoint[];
 }>();
 
+/**
+ * Computed chart dataset mapping historical traffic telemetry into formatted line series
+ * for download (RX) and upload (TX) metrics.
+ */
 const chartData = computed(() => ({
   labels: props.history.map((item) => item.time),
   datasets: [
@@ -54,6 +64,10 @@ const chartData = computed(() => ({
   ],
 }));
 
+/**
+ * Configuration options defining responsive layout, axis grids, tick styling,
+ * and plugin visibility for the traffic performance chart.
+ */
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -80,7 +94,7 @@ const chartOptions = {
   >
     <div class="flex justify-between items-center mb-6">
       <div class="flex items-center gap-3">
-        <!-- Píldora de acento idéntica a las métricas -->
+        <!-- Accent pill matching metrics style -->
         <span class="w-1.5 h-6 bg-primary rounded-full"></span>
         <div>
           <h2 class="text-lg font-mono text-main font-semibold">

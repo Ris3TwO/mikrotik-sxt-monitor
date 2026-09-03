@@ -1,12 +1,20 @@
-<script setup>
+<script setup lang="ts">
+/**
+ * Login view component providing the gateway interface for entering 
+ * MikroTik device credentials and handling authentication workflows.
+ */
 import { useAuth } from "@/composables/useAuth";
 import NetworkInput from "@/components/atoms/NetworkInput.vue";
 import NetworkButton from "@/components/atoms/NetworkButton.vue";
 import { useI18n } from "vue-i18n";
+import { LoginCredentials } from "@/types";
 
 const { t } = useI18n();
 
-const emit = defineEmits(["login-success"]);
+const emit = defineEmits<{
+  /** Event emitted when authentication completes successfully */
+  (e: "login-success", credentials: LoginCredentials): void;
+}>();
 
 const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
   useAuth((credentials) => emit("login-success", credentials), t);
@@ -19,9 +27,9 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
     <div
       class="w-full max-w-sm mx-auto overflow-hidden bg-surface rounded-2xl border border-muted/10 shadow-2xl"
     >
-      <!-- Cabecera con tu Branding -->
+      <!-- Header with application branding -->
       <div class="px-6 pt-6 pb-4 text-center">
-        <!-- Tu Isotipo / Logo limpio sin caja contenedora -->
+        <!-- Clean isotypo/logo without container box -->
         <div class="flex justify-center mx-auto mb-3">
           <img
             src="@/assets/images/logo-oc.svg"
@@ -30,16 +38,16 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
           />
         </div>
 
-        <!-- Título de la App y tu Marca -->
+        <!-- App title and brand identity -->
         <h3 class="text-xl font-mono font-bold text-main">
-          NOC Access Gateway
+          MikroTik NOC
         </h3>
         <p class="mt-1 text-xs text-muted font-mono">
-          On Coder's <span class="text-accent">•</span> Expertise & Connection
+          On Coder's <span class="text-accent">•</span> Network Operations Center
         </p>
       </div>
 
-      <!-- Formulario principal con Componentes Atómicos -->
+      <!-- Main form using atomic components -->
       <div class="px-6 pb-6">
         <form @submit.prevent="handleLogin" class="space-y-4">
           <NetworkInput
@@ -64,7 +72,7 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
             @toggle-password="showPassword = !showPassword"
           />
 
-          <!-- Checkbox recordar credenciales -->
+          <!-- Remember credentials checkbox -->
           <div class="flex items-center gap-2 pt-1 font-mono text-xs">
             <input
               v-model="rememberPass"
@@ -77,7 +85,7 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
             </label>
           </div>
 
-          <!-- Botón Atómico -->
+          <!-- Atomic submit button -->
           <NetworkButton :isLoading="isLoading" type="submit">
             {{
               isLoading ? t("login.loginButtonLoading") : t("login.loginButton")
@@ -86,15 +94,13 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
         </form>
       </div>
 
-      <!-- Pie de tarjeta con mención técnica y de autoría -->
+      <!-- Card footer with technical mention and authorship -->
       <div
         class="flex flex-col items-center justify-center py-3 text-center bg-surface/50 border-t border-muted/10 font-mono space-y-1"
       >
         <div class="flex items-center">
           <span class="text-xs text-muted">{{ t("login.engine") }}: </span>
-          <span class="ml-1.5 text-xs font-bold text-accent"
-            >MikroTik Direct API REST</span
-          >
+          <span class="ml-1.5 text-xs font-bold text-accent">MikroTik Direct API REST</span>
         </div>
         <div class="text-xs text-muted/80">
           Developed by

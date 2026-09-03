@@ -11,7 +11,8 @@ import { storeToRefs } from "pinia";
 
 const { t } = useI18n();
 const deviceStore = useDeviceStore();
-const { ccqBgColor, signalBgColor } = storeToRefs(deviceStore);
+const { ccqColor, ccqBgColor, signalColor, signalBgColor } =
+  storeToRefs(deviceStore);
 
 const props = defineProps<{
   device: DeviceStatus;
@@ -34,7 +35,7 @@ const formattedChannel = computed(() => {
 
 <template>
   <section
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-6"
   >
     <!-- Alerta de Estado ocupando todo el ancho del grid -->
     <LinkAlert
@@ -128,7 +129,12 @@ const formattedChannel = computed(() => {
       glowColor="bg-accent/5"
     >
       <div>
-        <p class="text-4xl font-bold font-mono tracking-tight text-main">
+        <p
+          :class="[
+            'text-4xl font-bold font-mono tracking-tight transition-colors duration-300',
+            signalColor,
+          ]"
+        >
           {{ deviceStore.signal_dbm ?? "--" }}
           <span class="text-lg font-normal text-muted">dBm</span>
         </p>
@@ -152,7 +158,12 @@ const formattedChannel = computed(() => {
       glowColor="bg-brand-turquoise/5"
     >
       <div>
-        <p class="text-4xl font-bold font-mono tracking-tight text-main">
+        <p
+          :class="[
+            'text-4xl font-bold font-mono tracking-tight transition-colors duration-300',
+            ccqColor,
+          ]"
+        >
           {{ device.tx_ccq ?? "--"
           }}<span class="text-lg font-normal text-muted">%</span>
         </p>

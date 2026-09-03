@@ -1,7 +1,12 @@
 <script setup lang="ts">
+/**
+ * Formatted time display component that renders relative time strings with
+ * a hover tooltip showing the precise formatted timestamp.
+ */
 import { useRelativeTime } from "@/composables/useRelativeTime";
 
 const props = defineProps<{
+  /** Input timestamp value as a string, Date object, or null */
   timestamp?: string | Date | null;
 }>();
 

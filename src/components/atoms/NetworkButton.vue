@@ -1,18 +1,16 @@
-<script setup>
-defineProps({
-  isLoading: {
-    type: Boolean,
-    default: false,
-  },
-  type: {
-    type: String,
-    default: "submit",
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-});
+<script setup lang="ts">
+/**
+ * Reusable network action button component supporting an internal loading spinner,
+ * customizable button types, and disabled states.
+ */
+defineProps<{
+  /** Flag indicating whether the button is in an active loading state */
+  isLoading?: boolean;
+  /** HTML button type attribute */
+  type?: "button" | "submit" | "reset";
+  /** Flag indicating whether the button interaction is disabled */
+  disabled?: boolean;
+}>();
 </script>
 
 <template>
