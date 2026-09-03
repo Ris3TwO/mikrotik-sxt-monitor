@@ -4,7 +4,7 @@
  * and controls for session disconnection or logout.
  */
 import { notify } from "@kyvg/vue3-notification";
-import StatusDot from "@/components/atoms/StatusDot.vue";
+import StatusDot from "@/components/atoms/StatusDot/StatusDot.vue";
 import { DeviceMeta } from "@/types";
 import { useDeviceStore } from "@/stores/deviceStore";
 import { useI18n } from "vue-i18n";

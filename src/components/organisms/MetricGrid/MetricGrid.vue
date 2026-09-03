@@ -1,8 +1,12 @@
 <script setup lang="ts">
+/**
+ * Comprehensive device metrics grid component displaying real-time wireless statistics,
+ * signal quality, throughput rates, frequency details, and connection status alerts.
+ */
 import { computed } from "vue";
-import LinkAlert from "@/components/molecules/LinkAlert.vue";
-import MetricCard from "@/components/molecules/MetricCard.vue";
-import TimeDisplay from "@/components/atoms/TimeDisplay.vue";
+import LinkWarningAlert from "@/components/molecules/LinkWarningAlert/LinkWarningAlert.vue";
+import MetricCard from "@/components/molecules/MetricCard/MetricCard.vue";
+import TimeDisplay from "@/components/atoms/TimeDisplay/TimeDisplay.vue";
 import { formatBps } from "@/utils/formatters";
 import { DeviceStatus } from "@/types";
 import { useI18n } from "vue-i18n";
@@ -11,14 +15,21 @@ import { storeToRefs } from "pinia";
 
 const { t } = useI18n();
 const deviceStore = useDeviceStore();
-const { ccqColor, ccqBgColor, signalColor, signalBgColor } =
-  storeToRefs(deviceStore);
+const { ccqColor, ccqBgColor, signalColor, signalBgColor } = storeToRefs(deviceStore);
 
 const props = defineProps<{
+  /** Current network device status payload containing link, signal, and rate metrics */
   device: DeviceStatus;
 }>();
 
-const formattedChannel = computed(() => {
+/**
+ * Computes a human-readable and localized channel description string.
+ * It parses the raw frequency telemetry string to extract and append the
+ * wireless protocol and channel extension details (e.g., HT/Ce) when available.
+ *
+ * @returns {string} The formatted channel string with frequency band, protocol, and extension.
+ */
+const formattedChannel = computed((): string => {
   if (!props.device.frequency_raw) return `${t("dashboard.channel")} 5GHz`;
 
   const parts = props.device.frequency_raw.split("/");
@@ -34,17 +45,15 @@ const formattedChannel = computed(() => {
 </script>
 
 <template>
-  <section
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-6"
-  >
-    <!-- Alerta de Estado ocupando todo el ancho del grid -->
-    <LinkAlert
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-6">
+    <!-- Status alert spanning the entire grid width -->
+    <LinkWarningAlert
       v-if="!device.connected || !device.ssid"
       :connected="device.connected"
       :ssid="device.ssid"
     />
 
-    <!-- Tarjeta 1: Desconexiones de Enlace (Link Downs) -->
+    <!-- Card 1: Link Downs (Link Health) -->
     <MetricCard
       v-if="device.connected"
       :title="t('dashboard.linkHealth')"
@@ -62,7 +71,7 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- Tarjeta 2: Último Levantamiento de Enlace -->
+    <!-- Card 2: Last Uplink / Active Interface -->
     <MetricCard
       v-if="device.connected"
       :title="t('dashboard.activeInterface')"
@@ -80,18 +89,16 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 3. Tarjeta SSID y BSSID -->
+    <!-- Card 3: SSID and BSSID Identity -->
     <MetricCard
-      v-if="device.connected && device.ssid"
+      v-if="device.connected"
       :title="t('dashboard.identity')"
       glowColor="bg-brand-lavender/5"
     >
       <div class="space-y-1 font-mono">
         <div class="flex justify-between text-xs truncate">
           <span class="text-muted">SSID:</span>
-          <span class="text-main font-bold truncate max-w-35">{{
-            device.ssid ?? "--"
-          }}</span>
+          <span class="text-main font-bold truncate max-w-35">{{ device.ssid ?? "--" }}</span>
         </div>
         <div class="flex justify-between text-xs">
           <span class="text-muted">BSSID:</span>
@@ -100,7 +107,7 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 4. Tarjeta Tasas Físicas (RX / TX Rate) -->
+    <!-- Card 4: Physical Rates (RX / TX Rate) -->
     <MetricCard
       v-if="device.connected && device.ssid"
       :title="t('dashboard.physicalRates')"
@@ -122,7 +129,7 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 5. Tarjeta Señal (RSSI) -->
+    <!-- Card 5: Signal Strength (RSSI) -->
     <MetricCard
       v-if="device.connected && device.ssid"
       :title="t('dashboard.signalStrength')"
@@ -151,7 +158,7 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 6. Tarjeta CCQ -->
+    <!-- Card 6: Client Connection Quality (CCQ) -->
     <MetricCard
       v-if="device.connected && device.ssid"
       :title="t('dashboard.clientConnectionQuality')"
@@ -164,8 +171,7 @@ const formattedChannel = computed(() => {
             ccqColor,
           ]"
         >
-          {{ device.tx_ccq ?? "--"
-          }}<span class="text-lg font-normal text-muted">%</span>
+          {{ device.tx_ccq ?? "--" }}<span class="text-lg font-normal text-muted">%</span>
         </p>
         <div class="w-full bg-muted/20 h-1.5 rounded-full mt-3 overflow-hidden">
           <div
@@ -176,15 +182,10 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 7. Tarjeta Frecuencia -->
-    <MetricCard
-      :title="t('dashboard.frequency')"
-      glowColor="bg-brand-turquoise/5"
-    >
+    <!-- Card 7: Frequency -->
+    <MetricCard :title="t('dashboard.frequency')" glowColor="bg-brand-turquoise/5">
       <div>
-        <p
-          class="text-3xl font-bold font-mono tracking-tight text-main truncate"
-        >
+        <p class="text-3xl font-bold font-mono tracking-tight text-main truncate">
           {{ device.frequency_mhz ?? "--" }}
           <span class="text-sm font-normal text-muted">MHz</span>
         </p>
@@ -192,7 +193,7 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 8. Tarjeta SNR (Signal-to-Noise) -->
+    <!-- Card 8: Signal-to-Noise Ratio (SNR) -->
     <MetricCard
       v-if="device.connected && device.ssid"
       :title="t('dashboard.signalToNoiseRatio')"
@@ -209,7 +210,7 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 9. Tarjeta Noise Floor -->
+    <!-- Card 9: Noise Floor -->
     <MetricCard
       v-if="device.connected && device.ssid"
       :title="t('dashboard.noiseFloor')"
@@ -226,7 +227,7 @@ const formattedChannel = computed(() => {
       </div>
     </MetricCard>
 
-    <!-- 10. Tarjeta Tráfico de Red (Throughput en vivo) -->
+    <!-- Card 10: Live Network Traffic (Live Throughput) -->
     <MetricCard
       v-if="device.connected && device.ssid"
       :title="t('dashboard.liveTransferRate')"
@@ -235,15 +236,11 @@ const formattedChannel = computed(() => {
       <div class="space-y-1 font-mono">
         <div class="flex justify-between text-sm">
           <span class="text-muted">RX:</span>
-          <span class="text-main font-bold">{{
-            formatBps(device.rx_bps)
-          }}</span>
+          <span class="text-main font-bold">{{ formatBps(device.rx_bps) }}</span>
         </div>
         <div class="flex justify-between text-sm">
           <span class="text-muted">TX:</span>
-          <span class="text-main font-bold">{{
-            formatBps(device.tx_bps)
-          }}</span>
+          <span class="text-main font-bold">{{ formatBps(device.tx_bps) }}</span>
         </div>
       </div>
     </MetricCard>

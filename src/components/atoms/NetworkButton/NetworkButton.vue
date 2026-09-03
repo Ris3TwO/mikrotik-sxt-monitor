@@ -3,14 +3,16 @@
  * Reusable network action button component supporting an internal loading spinner,
  * customizable button types, and disabled states.
  */
-defineProps<{
-  /** Flag indicating whether the button is in an active loading state */
-  isLoading?: boolean;
-  /** HTML button type attribute */
-  type?: "button" | "submit" | "reset";
-  /** Flag indicating whether the button interaction is disabled */
-  disabled?: boolean;
-}>();
+withDefaults(
+  defineProps<{
+    isLoading?: boolean;
+    type?: "button" | "submit" | "reset";
+    disabled?: boolean;
+  }>(),
+  {
+    type: "button",
+  }
+);
 </script>
 
 <template>

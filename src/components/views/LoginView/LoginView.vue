@@ -1,11 +1,11 @@
 <script setup lang="ts">
 /**
- * Login view component providing the gateway interface for entering 
+ * Login view component providing the gateway interface for entering
  * MikroTik device credentials and handling authentication workflows.
  */
-import { useAuth } from "@/composables/useAuth/useAuth";
-import NetworkInput from "@/components/atoms/NetworkInput.vue";
-import NetworkButton from "@/components/atoms/NetworkButton.vue";
+import { useAuth } from "@/composables";
+import NetworkInput from "@/components/atoms/NetworkInput/NetworkInput.vue";
+import NetworkButton from "@/components/atoms/NetworkButton/NetworkButton.vue";
 import { useI18n } from "vue-i18n";
 import { LoginCredentials } from "@/types";
 
@@ -16,14 +16,14 @@ const emit = defineEmits<{
   (e: "login-success", credentials: LoginCredentials): void;
 }>();
 
-const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
-  useAuth((credentials) => emit("login-success", credentials), t);
+const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } = useAuth(
+  (credentials) => emit("login-success", credentials),
+  t
+);
 </script>
 
 <template>
-  <div
-    class="min-dvh-screen bg-canvas flex items-center justify-center p-6 font-sans"
-  >
+  <div class="min-dvh-screen bg-canvas flex items-center justify-center p-6 font-sans">
     <div
       class="w-full max-w-sm mx-auto overflow-hidden bg-surface rounded-2xl border border-muted/10 shadow-2xl"
     >
@@ -31,17 +31,11 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
       <div class="px-6 pt-6 pb-4 text-center">
         <!-- Clean isotypo/logo without container box -->
         <div class="flex justify-center mx-auto mb-3">
-          <img
-            src="@/assets/images/logo-oc.svg"
-            alt="Logo"
-            class="w-12 h-12 object-contain"
-          />
+          <img src="@/assets/images/logo-oc.svg" alt="Logo" class="w-12 h-12 object-contain" />
         </div>
 
         <!-- App title and brand identity -->
-        <h3 class="text-xl font-mono font-bold text-main">
-          MikroTik NOC
-        </h3>
+        <h3 class="text-xl font-mono font-bold text-main">MikroTik NOC</h3>
         <p class="mt-1 text-xs text-muted font-mono">
           On Coder's <span class="text-accent">•</span> Network Operations Center
         </p>
@@ -50,17 +44,9 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
       <!-- Main form using atomic components -->
       <div class="px-6 pb-6">
         <form @submit.prevent="handleLogin" class="space-y-4">
-          <NetworkInput
-            v-model="ip"
-            :label="t('login.ip_address')"
-            placeholder="192.168.88.1"
-          />
+          <NetworkInput v-model="ip" :label="t('login.ip_address')" placeholder="192.168.88.1" />
 
-          <NetworkInput
-            v-model="user"
-            :label="t('login.username')"
-            placeholder="admin"
-          />
+          <NetworkInput v-model="user" :label="t('login.username')" placeholder="admin" />
 
           <NetworkInput
             v-model="pass"
@@ -87,9 +73,7 @@ const { ip, user, pass, rememberPass, isLoading, showPassword, handleLogin } =
 
           <!-- Atomic submit button -->
           <NetworkButton :isLoading="isLoading" type="submit">
-            {{
-              isLoading ? t("login.loginButtonLoading") : t("login.loginButton")
-            }}
+            {{ isLoading ? t("login.loginButtonLoading") : t("login.loginButton") }}
           </NetworkButton>
         </form>
       </div>
