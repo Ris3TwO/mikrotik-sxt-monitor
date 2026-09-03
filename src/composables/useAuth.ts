@@ -3,6 +3,14 @@ import { notify } from "@kyvg/vue3-notification";
 import { invoke } from "@tauri-apps/api/core";
 import { LoginCredentials } from "@/types";
 
+/**
+ * Authentication composable to manage Mikrotik connection credentials,
+ * local storage persistence, auto-login execution, and error handling.
+ *
+ * @param {function} onSuccess - Callback executed when authentication succeeds, passing credentials.
+ * @param {function} t - Translation function for i18n support.
+ * @returns Object containing reactive authentication state variables and the handleLogin method.
+ */
 export const useAuth = (
   onSuccess: (credentials: LoginCredentials) => void,
   t: (key: string, params?: Record<string, unknown>) => string,
@@ -14,6 +22,7 @@ export const useAuth = (
   const isLoading = ref<boolean>(false);
   const showPassword = ref<boolean>(false);
 
+  // Load saved credentials from local storage on mount and attempt auto-login if enabled
   onMounted(() => {
     ip.value = localStorage.getItem("mikrotik_ip") || "";
     user.value = localStorage.getItem("mikrotik_user") || "";
@@ -36,6 +45,10 @@ export const useAuth = (
     }
   });
 
+  /**
+   * Validates input fields, invokes the backend connection test command,
+   * handles local storage caching based on user preferences, and triggers notifications.
+   */
   const handleLogin = async (): Promise<void> => {
     const trimmedIp = ip.value.trim();
     const trimmedUser = user.value.trim();
