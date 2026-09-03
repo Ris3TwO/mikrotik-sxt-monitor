@@ -1,5 +1,8 @@
 import type { Ref } from "vue";
 
+/**
+ * Flexible input type supporting raw date values, reactive refs, or getter functions for timestamps.
+ */
 export type TimestampInput =
   | string
   | Date
