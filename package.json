@@ -11,7 +11,11 @@
     "lint": "eslint . --ext .ts,.vue,.js",
     "lint:fix": "eslint . --ext .ts,.vue,.js --fix",
     "prepare": "husky",
-    "bump": "node scripts/bump.js"
+    "bump": "node scripts/bump.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^3.4.2",
@@ -30,6 +34,7 @@
     "@tauri-apps/cli": "^2",
     "@types/node": "^26.4.0",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vitest/coverage-v8": "^4.1.11",
     "@vue/eslint-config-typescript": "^14.9.0",
     "@vue/test-utils": "^2.5.0",
     "autoprefixer": "^10.5.4",

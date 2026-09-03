@@ -9,7 +9,7 @@ import parserVue from "vue-eslint-parser";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "src-tauri/**", "node_modules/**"],
+    ignores: ["coverage/*", "dist/**", "src-tauri/**", "node_modules/**"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
