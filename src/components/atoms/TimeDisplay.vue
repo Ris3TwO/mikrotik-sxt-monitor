@@ -5,7 +5,7 @@ const props = defineProps<{
   timestamp?: string | Date | null;
 }>();
 
-const { relativeTime, exactTimestamp } = useRelativeTime(props.timestamp);
+const { relativeTime, exactTimestamp } = useRelativeTime(() => props.timestamp);
 </script>
 
 <template>

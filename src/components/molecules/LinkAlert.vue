@@ -28,10 +28,10 @@ const { t } = useI18n();
       />
     </svg>
     <div>
-      <p class="font-bold">{{ t("linkAlert.title") }}</p>
+      <p class="font-bold">{{ t("dashboard.linkAlert.title") }}</p>
       <p class="opacity-80">
         {{
-          !connected ? t("linkAlert.unreachable") : t("linkAlert.unassociated")
+          !connected ? t("dashboard.linkAlert.unreachable") : t("dashboard.linkAlert.unassociated")
         }}
       </p>
     </div>
