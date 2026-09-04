@@ -1,5 +1,2 @@
 echo "🧹 Running linter before commit..."
 pnpm lint
-
-echo "📦 Staging any formatted files..."
-git add -u
