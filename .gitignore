@@ -7,15 +7,36 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node & Frontend
 node_modules
 dist
 dist-ssr
 *.local
+coverage
+.nyc_output
+.eslintcache
+
+# Rust
 src-tauri/target
+**/*.rs.bk
+
+# Tauri Signing Keys & Updater Secrets (CRÍTICO)
+*.key
+*.pub
+*.pem
+*.sig
+*.pfx
+*.p12
+
+# Environment Variables
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -23,5 +44,4 @@ src-tauri/target
 *.njsproj
 *.sln
 *.sw?
-coverage
-.nyc_output
+Thumbs.db

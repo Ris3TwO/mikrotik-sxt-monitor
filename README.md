@@ -1,61 +1,141 @@
-# NOC Access Gateway
+<div align="center">
 
-High-performance desktop application designed for network infrastructure monitoring and management, connecting directly to devices via the **MikroTik RouterOS REST API**. Built with modern web technologies and a native core optimized for Network Operations Center (NOC) environments.
+# On Coder's MikroTik NOC
+
+An enterprise-grade, cross-platform desktop client designed for real-time monitoring and telemetry of MikroTik RouterOS infrastructure.
+
+[![Tauri](https://img.shields.io/badge/Tauri-v2-blue?style=flat-square&logo=tauri&logoColor=white)](https://tauri.app/)
+[![Rust](https://img.shields.io/badge/Rust-1.75+-orange?style=flat-square&logo=rust&logoColor=white)](https://www.rust-lang.org/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-v3-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-v5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+
+</div>
+
+---
+
+## Overview
+
+**On Coder's MikroTik NOC** is a lightweight, high-performance Network Operations Center client built for network engineers and WISP administrators. It delivers low-latency device status checks, wireless link analysis, and bandwidth metrics directly from MikroTik hardware using secure **HTTPS / RouterOS REST API** queries.
+
+Engineered with a clean Rust/Tauri architecture, it eliminates heavy Chromium overhead to provide a minimal memory footprint, ideal for multi-monitor NOC environments and low-resource workstations.
+
+---
 
 ## Key Features
 
-- **Real-time Monitoring**: Visualization of wireless link metrics, stability (drops), interface synchronization, physical rates (RX/TX), RSSI, and transmission quality (CCQ).
-- **Direct MikroTik Connection**: Native integration with the RouterOS REST API for fast communication without heavy intermediaries.
-- **Internationalization (i18n)**: Native multi-language support (English / Spanish) with automatic system detection and local preference persistence via `localStorage`.
-- **Security & Persistence**: Secure local storage options for network device access credentials.
-- **Auto-Updates**: Ready for seamless deployments using Tauri's automated update system (`tauri-plugin-updater`).
+- **Real-Time Telemetry & Metrics:** Live monitoring of wireless link health, packet drop rates, interface synchronization, RX/TX throughput, RSSI, and CCQ quality.
+- **Native Rust Query Engine:** Direct HTTPS communications via custom Rust commands for optimal concurrency and thread safety.
+- **RouterOS Requirements & REST API Support:** Native integration with RouterOS v7 REST endpoints, removing legacy API binary protocol constraints.
+- **Internationalization (i18n):** Built-in English and Spanish localization with automatic OS language detection and user preference persistence.
+- **Dark NOC Theme:** High-contrast, dark-mode user interface tailored for continuous monitoring environments.
+- **Automated Updates:** Secure in-app auto-updates using `tauri-plugin-updater` with Minisign public key verification.
 
-## Tech Stack
+---
 
-- **Native Core / Backend**: [Rust](https://www.rust-lang.org/) (managing performance, type safety, and the network query engine).
-- **Desktop Framework**: [Tauri v2](https://tauri.app/) (lightweight and low resource consumption compared to traditional Chromium-based alternatives).
-- **Frontend**: [Vue 3](https://vuejs.org/) (Composition API) along with [TypeScript](https://www.typescriptlang.org/).
-- **Styles & UI**: [Tailwind CSS](https://tailwindcss.com/) with a custom high-contrast color palette for dark NOC environments.
-- **Internationalization**: `vue-i18n`.
+## System Architecture
 
-## Prerequisites
+The application adopts a decoupled desktop architecture designed for safety and responsiveness:
 
-Make sure you have the following tools installed on your development environment before cloning the repository:
+```text
+┌────────────────────────────────────────────────────────┐
+│                   Vue 3 + TS Frontend                  │
+│   (Pinia State, Lucide Icons, Chart Rendering, i18n)   │
+└───────────────────────────┬────────────────────────────┘
+                            │  Tauri IPC Commands
+┌───────────────────────────▼────────────────────────────┐
+│                    Rust Core (Tauri v2)                │
+│   (Modularized App State, Config, Command Handlers)    │
+└───────────────────────────┬────────────────────────────┘
+                            │  HTTPS / REST API
+┌───────────────────────────▼────────────────────────────┐
+│                MikroTik RouterOS Device                │
+└────────────────────────────────────────────────────────┘
+```
 
-- [Node.js](https://nodejs.org/) (LTS version recommended)
-- [pnpm](https://pnpm.io/) (recommended package manager)
-- [Rust toolchain](https://rustup.rs/) (cargo and rustc)
-- System dependencies required by Tauri (WebKitGTK on Linux, Xcode Command Line Tools on macOS, or MSVC Build Tools on Windows).
+RouterOS Requirements
+---------------------
 
-## Installation & Development
+To enable successful connection with target MikroTik devices:
 
-1.  Clone the repository:
+*   **RouterOS Version:** RouterOS **v7.1.1** or higher (REST API engine enabled by default).
+    
+*   **HTTP/HTTPS Service:** The `www-ssl` (or `www`) service must be active under IP Services:
+    
+    
+        /ip service set www-ssl disabled=no port=443
+    
+*   **User Permissions:** A dedicated user account with at least `read` and `rest-api` policies:
+    
+        /user group add name=noc-monitor policy=read,rest-api
+        /user add name=noc-user group=noc-monitor password=YOUR_SECURE_PASSWORD
+    
 
-    Bash
+Prerequisites
+-------------
 
-        git clone https://github.com/Ris3TwO/mikrotik-sxt-monitor.git
-        cd mikrotik-sxt-monitor
+Ensure your development environment meets the following requirements:
 
-2.  Install project dependencies:
+*   **Node.js:** v18.0.0 or higher
+    
+*   **pnpm:** v8.0.0+ (recommended package manager)
+    
+*   **Rust toolchain:** `rustc` and `cargo` (latest stable)
+    
+*   **System Build Tools:** Follow the official [Tauri v2 Prerequisites Guide](https://v2.tauri.app/start/prerequisites/) for your OS (Windows C++ Build Tools, Xcode CLI Tools on macOS, or WebKitGTK on Linux).
+    
 
-    Bash
+Getting Started
+---------------
 
-        pnpm install
+### 1\. Clone the repository
 
-3.  Run the application in development mode (Tauri + Vite):
+Bash
 
-    Bash
+    git clone [https://github.com/Ris3TwO/on-coders-mikrotik-noc.git](https://github.com/Ris3TwO/on-coders-mikrotik-noc.git)
+    cd on-coders-mikrotik-noc
 
-        pnpm tauri dev
+### 2\. Install dependencies
 
-## Build & Production
+Bash
 
-To generate native, optimized installable binaries for your operating system:
+    pnpm install
+
+### 3\. Run in development mode
+
+Bash
+
+    pnpm tauri dev
+
+Build & Quality Assurance
+-------------------------
+
+### Run Code Checks and Tests
+
+Execute full frontend linting, unit tests, and Rust integration tests:
+
+Bash
+
+    pnpm check:all
+
+### Build Production Binaries
+
+Generate optimized native executables and installers (`.msi`, `.exe`, `.deb`, `.AppImage`):
 
 Bash
 
     pnpm tauri build
 
-_Note: To enable automatic update signing, make sure to configure the `TAURI_SIGNING_PRIVATE_KEY` environment variable in your build pipeline._
+The output bundles will be located in `src-tauri/target/release/bundle/`.
 
-Developed by **On Coder's** • Expertise & Connection
+> **Note:** For automated CI/CD releases, ensure the `TAURI_SIGNING_PRIVATE_KEY` environment variable is defined for installer signing.
+
+License
+-------
+
+Distributed under the MIT License. See `LICENSE` for details.
+
+Developed by **On Coder's** • _Expertise & Connection_
+
+---
