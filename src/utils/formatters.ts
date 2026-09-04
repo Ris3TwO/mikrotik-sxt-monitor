@@ -1,22 +1,34 @@
+/**
+ * Formatting and localization utility functions for handling date parsing via Day.js
+ * and network data rate conversions (bps, Kbps, Mbps, Gbps).
+ */
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/es";
-import "dayjs/locale/en"; // Importa también el inglés (o los que necesites)
+import "dayjs/locale/en";
 
 dayjs.extend(relativeTime);
-dayjs.locale("en"); // Idioma por defecto inicial
+dayjs.locale("en"); // Initial default locale
 
 /**
- * Cambia el idioma global de Day.js dinámicamente.
- * @param locale - Código del idioma ('es', 'en', etc.)
+ * Dynamically updates the global Day.js locale with a safe fallback to English.
+ * 
+ * @param {string} locale - Target locale code (e.g., "es", "en").
+ * @returns {void}
  */
-export const setDayjsLocale = (locale: string) => {
-  // Validamos que el idioma sea soportado o hacemos un fallback seguro
+export const setDayjsLocale = (locale: string): void => {
+  // Validate that the locale is supported or fall back safely
   const supportedLocales = ["es", "en"];
   const targetLocale = supportedLocales.includes(locale) ? locale : "en";
   dayjs.locale(targetLocale);
 };
 
+/**
+ * Formats raw bit rate values into human-readable network bandwidth units (bps, Kbps, Mbps, Gbps).
+ * 
+ * @param {number | string | null | undefined} bits - Raw bit rate value to format.
+ * @returns {string} Formatted bandwidth string with appropriate unit suffix.
+ */
 export const formatBps = (bits: number | string | null | undefined): string => {
   if (!bits || isNaN(Number(bits))) return "0 bps";
   const num = Number(bits);

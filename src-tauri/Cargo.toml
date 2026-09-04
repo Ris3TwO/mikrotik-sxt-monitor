@@ -1,6 +1,6 @@
 [package]
 name = "mikrotik-monitor"
-version = "0.2.0"
+version = "0.2.3"
 description = "A Tauri App"
 authors = ["Ris3TwO"]
 edition = "2021"
