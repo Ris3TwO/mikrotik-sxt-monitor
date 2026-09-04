@@ -1,2 +1,5 @@
-echo "🧪 Running tests before pushing..."
+echo "🧪 Running tests before commit..."
 pnpm test
+
+echo "📦 Staging any generated files..."
+git add -u

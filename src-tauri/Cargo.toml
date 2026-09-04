@@ -35,3 +35,6 @@ codegen-units = 1     # Optimiza todo el binario en una sola unidad (reduce tama
 lto = true            # Link Time Optimization (elimina código muerto de dependencias de Rust)
 opt-level = "s"       # Optimiza estrictamente para reducir el tamaño del binario (puedes usar "z" para tamaño mínimo absoluto)
 strip = true          # Elimina todos los símbolos de depuración y metadatos innecesarios
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-window-state = "2"

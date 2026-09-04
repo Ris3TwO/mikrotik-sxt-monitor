@@ -25,6 +25,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2",
+    "@tauri-apps/plugin-window-state": "~2.4.1",
     "chart.js": "^4.5.1",
     "dayjs": "^1.11.23",
     "pinia": "^4.0.3",
