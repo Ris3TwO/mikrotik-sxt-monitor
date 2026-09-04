@@ -49,7 +49,7 @@ impl MikrotikClient {
 
         Self {
             http,
-            base_url: format!("http://{}/rest", ip),
+            base_url: format!("https://{}/rest", ip),
             user: user.to_string(),
             pass: pass.to_string(),
         }
@@ -217,7 +217,7 @@ mod tests {
     #[test]
     fn test_client_initialization_urls() {
         let client = MikrotikClient::new("192.168.88.1", "admin", "secret");
-        assert_eq!(client.base_url, "http://192.168.88.1/rest");
+        assert_eq!(client.base_url, "https://192.168.88.1/rest");
         assert_eq!(client.user, "admin");
         assert_eq!(client.pass, "secret");
     }
@@ -231,7 +231,7 @@ mod tests {
             "pass",
             std::time::Duration::from_secs(5),
         );
-        assert_eq!(client.base_url, "http://10.0.0.1/rest");
+        assert_eq!(client.base_url, "https://10.0.0.1/rest");
     }
 
     /// Tests JSON array parsing for wireless monitoring responses.
