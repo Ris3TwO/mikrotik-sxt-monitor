@@ -1,7 +1,7 @@
 {
   "name": "oncoders-mikrotik-noc",
   "private": true,
-  "version": "0.3.3",
+  "version": "0.4.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,7 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "test:tauri": "tauri test",
+    "test:tauri": "cargo test --manifest-path src-tauri/Cargo.toml",
     "test:all": "pnpm test && pnpm test:tauri",
     "check:all": "pnpm lint && pnpm test:all && pnpm build"
   },
