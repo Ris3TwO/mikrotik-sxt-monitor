@@ -1,5 +1,5 @@
 {
-  "name": "mikrotik-sxt-monitor",
+  "name": "oncoders-mikrotik-noc",
   "private": true,
   "version": "0.3.1",
   "type": "module",
@@ -12,6 +12,9 @@
     "lint:fix": "eslint . --ext .ts,.vue,.js --fix",
     "prepare": "husky",
     "bump": "node scripts/bump.js",
+    "release:patch": "node scripts/bump.js patch && git add package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml src-tauri/Cargo.lock && git commit -m \"chore(release): bump patch version\"",
+    "release:minor": "node scripts/bump.js minor && git add package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml src-tauri/Cargo.lock && git commit -m \"chore(release): bump minor version\"",
+    "release:major": "node scripts/bump.js major && git add package.json src-tauri/tauri.conf.json src-tauri/Cargo.toml src-tauri/Cargo.lock && git commit -m \"chore(release): bump major version\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

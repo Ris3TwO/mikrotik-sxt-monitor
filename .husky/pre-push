@@ -1,2 +1,5 @@
+echo "🧹 Validating linter..."
 pnpm lint
+
+echo "📦 Building frontend..."
 pnpm build
