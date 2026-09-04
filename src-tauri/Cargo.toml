@@ -1,9 +1,12 @@
 [package]
-name = "mikrotik-monitor"
-version = "0.2.3"
-description = "A Tauri App"
-authors = ["Ris3TwO"]
+name = "oncoders-mikrotik-noc"
+version = "0.3.1"
+description = "OnCoder's MikroTik NOC — Network Operations Center & RouterOS Monitor Built with Tauri & Vue"
+authors = ["Manuel Ron (@Ris3TwO) <manuelron.dev@gmail.com>"]
 edition = "2021"
+repository = "https://github.com/Ris3TwO/oncoders-mikrotik-noc"
+keywords = ["mikrotik", "routeros", "tauri", "noc", "network-monitoring"]
+categories = ["network-programming", "gui"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
