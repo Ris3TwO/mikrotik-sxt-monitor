@@ -1,7 +1,7 @@
 [package]
 name = "oncoders-mikrotik-noc"
 version = "0.3.1"
-description = "OnCoder's MikroTik NOC — Network Operations Center & RouterOS Monitor Built with Tauri & Vue"
+description = "On Coder's MikroTik NOC — Network Operations Center & RouterOS Monitor Built with Tauri & Vue"
 authors = ["Manuel Ron (@Ris3TwO) <manuelron.dev@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/Ris3TwO/oncoders-mikrotik-noc"
@@ -14,7 +14,7 @@ categories = ["network-programming", "gui"]
 # The `_lib` suffix may seem redundant but it is necessary
 # to make the lib name unique and wouldn't conflict with the bin name.
 # This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
-name = "mikrotik_monitor_lib"
+name = "oncoders_mikrotik_noc_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    mikrotik_monitor_lib::run()
+    oncoders_mikrotik_noc_lib::run()
 }
