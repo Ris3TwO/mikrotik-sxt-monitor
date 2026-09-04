@@ -2579,7 +2579,7 @@ dependencies = [
 
 [[package]]
 name = "on-coders-mikrotik-noc"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "chrono",
  "reqwest 0.12.28",
