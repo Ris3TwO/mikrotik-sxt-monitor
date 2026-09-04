@@ -18,7 +18,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:tauri": "tauri test",
+    "test:all": "pnpm test && pnpm test:tauri",
+    "check:all": "pnpm lint && pnpm test:all && pnpm build"
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^3.4.2",

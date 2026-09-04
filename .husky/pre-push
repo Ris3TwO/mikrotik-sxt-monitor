@@ -1,5 +1,5 @@
-echo "🧹 Validating linter..."
-pnpm lint
+echo "🧪 Running frontend and Rust tests..."
+pnpm test:all
 
-echo "📦 Building frontend..."
+echo "🏗️ Verifying frontend build..."
 pnpm build
