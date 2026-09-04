@@ -59,17 +59,26 @@ RouterOS Requirements
 
 To enable successful connection with target MikroTik devices:
 
-*   **RouterOS Version:** RouterOS **v7.1.1** or higher (REST API engine enabled by default).
-    
-*   **HTTP/HTTPS Service:** The `www-ssl` (or `www`) service must be active under IP Services:
-    
-    
-        /ip service set www-ssl disabled=no port=443
-    
-*   **User Permissions:** A dedicated user account with at least `read` and `rest-api` policies:
-    
-        /user group add name=noc-monitor policy=read,rest-api
-        /user add name=noc-user group=noc-monitor password=YOUR_SECURE_PASSWORD
+* **RouterOS Version:** RouterOS **v7.1.1** or higher (REST API engine enabled by default).
+
+* **HTTP/HTTPS Service & SSL Certificate:** The `www-ssl` service must be active under IP Services with a valid signed certificate to prevent protocol handshake errors:
+
+  1. Create and sign a self-signed certificate on your MikroTik device:
+     ```routeros
+     /certificate add name=local-ssl-cert common-name=YOUR_MIKROTIK_ROUTER_IP key-usage=key-cert-sign,digital-signature,key-encipherment days-valid=3650
+     /certificate sign local-ssl-cert
+     ```
+
+  2. Enable the `www-ssl` (or `www` for HTTP) service and bind the certificate:
+     ```routeros
+     /ip service set www-ssl certificate=local-ssl-cert disabled=no port=443
+     /ip service set www disabled=no port=80
+     ```
+
+* **User Permissions:** Create a dedicated user group with `read`, `web`, `api`, and `rest-api` policies (RouterOS v7 REST API relies on the `web` policy engine):
+  ```routeros
+  /user group add name=noc-monitor policy=read,web,api,rest-api
+  /user add name=noc-user group=noc-monitor password=YOUR_SECURE_PASSWORD
     
 
 Prerequisites
